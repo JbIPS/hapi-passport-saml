@@ -45,7 +45,8 @@ exports.assert = (
 
       if (onAssertRes) {
         let session = request.state[cookieName];
-        const updated = onAssertRes(profile,  request);
+        const updated = onAssertRes(profile,  request, reply);
+        if (updated === null) return;
         session[samlCredsPropKey] = updated;
         return reply.redirect(session.redirectTo).state(cookieName, session);
       }
